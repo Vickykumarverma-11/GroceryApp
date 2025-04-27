@@ -32,37 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class SplashToLogin extends StatefulWidget {
-//   const SplashToLogin({super.key});
-
-//   @override
-//   State<SplashToLogin> createState() => _SplashToLoginState();
-// }
-
-// class _SplashToLoginState extends State<SplashToLogin> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     Future.delayed(const Duration(seconds: 2), () {
-//       Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => StartScreen(
-//             onGetStarted: () {
-//               Navigator.pushReplacement(
-//                 context,
-//                 MaterialPageRoute(builder: (context) => const HomeScreen()),
-//               );
-//             },
-//           ),
-//         ),
-//       );
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const SplashToLogin();
-//   }
-// }
