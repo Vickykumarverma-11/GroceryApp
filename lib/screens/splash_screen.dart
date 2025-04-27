@@ -1,48 +1,111 @@
 import 'package:flutter/material.dart';
+import 'login_screen.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class SplashToLogin extends StatefulWidget {
+  const SplashToLogin({super.key});
+
+  @override
+  State<SplashToLogin> createState() => _SplashToLoginState();
+}
+
+class _SplashToLoginState extends State<SplashToLogin>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+    ));
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.5,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: const Interval(0.3, 0.8, curve: Curves.elasticOut),
+    ));
+
+    _controller.forward();
+
+    // Navigate to login screen after animation
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF6FCF97), // Green background
+      backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const Spacer(),
-            // Carrot Icon
-            Icon(
-              Icons.emoji_food_beverage_rounded, // Placeholder for carrot
-              size: 64,
-              color: Colors.white,
-            ),
-            const SizedBox(height: 16),
-            // Brand Name
-            const Text(
-              'Grocery',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.2,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) => FadeTransition(
+            opacity: _fadeAnimation,
+            child: Transform.scale(
+              scale: _scaleAnimation.value,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF53B175),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.shopping_cart,
+                      color: Colors.white,
+                      size: 60,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Grocery App',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF53B175),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Your Daily Needs',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 6),
-            // Subtitle
-            const Text(
-              'online groceriet',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                letterSpacing: 2,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const Spacer(),
-            const SizedBox(height: 44), // For bottom padding
-          ],
+          ),
         ),
       ),
     );

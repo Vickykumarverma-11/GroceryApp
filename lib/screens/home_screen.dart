@@ -153,9 +153,47 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
+        backgroundColor: Colors.white,
+        title: Consumer<LocationProvider>(
+          builder: (context, location, child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Grocery App',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (!location.loading && location.error.isEmpty)
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Color(0xFF53B175),
+                        size: 16,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        location.locality.isNotEmpty && location.city.isNotEmpty
+                            ? '${location.locality}, ${location.city}'
+                            : 'Location not available',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            );
+          },
+        ),
         actions: [
           Stack(
             children: [
@@ -212,60 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Location Section
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: Consumer<LocationProvider>(
-            //     builder: (context, location, child) {
-            //       if (location.loading) {
-            //         return const Text(
-            //           'Getting location...',
-            //           style: TextStyle(color: Colors.grey),
-            //         );
-            //       }
-            //       if (location.error.isNotEmpty) {
-            //         return Text(
-            //           location.error,
-            //           style: const TextStyle(color: Colors.red),
-            //         );
-            //       }
-            //       return Row(
-            //         children: [
-            //           const Icon(
-            //             Icons.location_on,
-            //             color: Color(0xFF53B175),
-            //           ),
-            //           const SizedBox(width: 8),
-            //           Expanded(
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 const Text(
-            //                   'Your Location',
-            //                   style: TextStyle(
-            //                     color: Colors.grey,
-            //                     fontSize: 12,
-            //                   ),
-            //                 ),
-            //                 const SizedBox(height: 4),
-            //                 Text(
-            //                   location.locality.isNotEmpty &&
-            //                           location.city.isNotEmpty
-            //                       ? '${location.locality}, ${location.city}'
-            //                       : 'Location not available',
-            //                   style: const TextStyle(
-            //                     fontSize: 16,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ],
-            //       );
-            //     },
-            //   ),
-            // ),
+
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(

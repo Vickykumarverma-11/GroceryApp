@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'screens/splash_screen.dart';
 import 'screens/start_screen.dart';
 import 'screens/home_screen.dart';
@@ -34,36 +33,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplashToLogin extends StatefulWidget {
-  const SplashToLogin({super.key});
+// class SplashToLogin extends StatefulWidget {
+//   const SplashToLogin({super.key});
 
-  @override
-  State<SplashToLogin> createState() => _SplashToLoginState();
-}
+//   @override
+//   State<SplashToLogin> createState() => _SplashToLoginState();
+// }
 
-class _SplashToLoginState extends State<SplashToLogin> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => StartScreen(
-            onGetStarted: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
-            },
-          ),
-        ),
-      );
-    });
-  }
+// class _SplashToLoginState extends State<SplashToLogin> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     Future.delayed(const Duration(seconds: 2), () {
+//       Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => StartScreen(
+//             onGetStarted: () {
+//               Navigator.pushReplacement(
+//                 context,
+//                 MaterialPageRoute(builder: (context) => const HomeScreen()),
+//               );
+//             },
+//           ),
+//         ),
+//       );
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return const SplashScreen();
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const SplashToLogin();
+//   }
+// }
